@@ -1,0 +1,98 @@
+#!/bin/bash
+
+(
+program=$1;
+main_program=${program##test/};
+tests=$2;
+min_tests=$3;
+n=$(cat $tests | wc -l);
+m=0;
+cd ./test/;
+g++ -fprofile-arcs -ftest-coverage $main_program -o P;
+cd ..;
+declare -A mat;
+i=0;
+
+while read t;
+do 
+    m=0;
+    temp=();
+    echo ${t[@]} | ./test/P > /dev/null;
+    gcov -b -c $program > /dev/null;
+    while read -r line ; do
+        line=($line);
+        m=$((m+1));
+        if [[ ${line[2]} == "never" ]]
+        then
+            temp+=( 0 );
+        elif [[ ${line[2]} == "taken" && ${line[3]} -eq "0" ]]
+        then
+            temp+=( 0 );
+        else 
+            temp+=( 1 );   
+        fi 
+    done < <(grep branch $main_program.gcov); 
+    for (( j=0; j<$m; j++ )) do 
+        mat[$i,$j]=${temp[$j]};
+    done
+    rm ./test/*.gcda;
+    i=$((i+1));
+done < $tests; 
+
+mv *.gcov test/;
+declare -A s;
+
+for (( i=0; i<$n; i++ )) do 
+    sum=0;
+    for (( j=0; j<$m ; j++)) do 
+        sum=$((mat[$i,$j]+sum));
+    done 
+    s[$i]=$((sum));
+done 
+
+ans=();
+covered=0;
+for (( i=0; i<$min_tests; i++ )) do 
+    max_s=-9999999999;
+    max_ind=0;
+    for (( j=0; j<$n; j++ )) do
+        valid=1;
+        for k in ${ans[@]} 
+        do
+            if [[ ! -z $k && "$k" == "$j" ]]; 
+            then
+                valid=0;
+            fi
+        done 
+        if [[ ${s[$j]} -gt $max_s && $valid -eq 1 ]] 
+        then
+            max_s=${s[$j]};
+            max_ind=$j;
+        fi  
+    done 
+    ans+=( $max_ind );
+    cat $tests | head "-$((max_ind+1))" | tail -1 >> test/S;
+    for (( k=0; k<$m; k++ )) do 
+        if [[ ${mat[$max_ind,$k]} -eq 1 ]] 
+        then
+            covered=$((covered+1));
+            mat[$max_ind,$k]=-1;
+            for (( j=0; j<$n; j++ )) do 
+                if [[ $j -ne $max_ind ]] 
+                then
+                    mat[$j,$k]=0;
+                fi 
+            done 
+        fi 
+    done 
+    for (( k=0; k<$n; k++ )) do 
+        sum=0;
+        for (( j=0; j<$m ; j++)) do 
+            sum=$((mat[$k,$j]+sum));
+        done 
+        s[$k]=$((sum));
+    done 
+done 
+
+echo "${covered} ${m}";
+) 2>/dev/null;

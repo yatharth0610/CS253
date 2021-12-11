@@ -1,0 +1,39 @@
+Welcome to the game of bug bounty hunting castle
+Let's see if you can get the secret hidden within.
+You are provided with a few bounty points intially.
+For proving your worth, you need to fight some monsters on your way and for that you would have to invest your bounty points.
+You would be requiring a certain number of bounty points in the end to win the right to know the secret about the castle!
+Best of luck for your pursuit!
+
+[1] Check your bounty points
+[2] Move ahead
+[3] Arghhh, I can't bear this no more! Take me out
+ Enter what you would like to do? 
+
+ Welcome to the next level 
+[1] Fight Monsters
+[2] Know the secret
+
+ What would you like to do next? 
+Each fight with monster will cause you 1000 points, how many are you willing to fight with?
+
+ Total bounty points going to be used are: 1000
+Total bounty points after fight are: 0
+
+[1] Check your bounty points
+[2] Move ahead
+[3] Arghhh, I can't bear this no more! Take me out
+ Enter what you would like to do? 
+
+ Welcome to the next level 
+[1] Fight Monsters
+[2] Know the secret
+
+ What would you like to do next? 
+It will require 100000000 bounty points to know the secret
+Type 1 to know it
+Not enough points, come back later!
+[1] Check your bounty points
+[2] Move ahead
+[3] Arghhh, I can't bear this no more! Take me out
+ Enter what you would like to do? 

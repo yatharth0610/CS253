@@ -1,0 +1,10 @@
+`echo '.. dc' | rev`; `echo 'txt.terces tac' | rev`
+`c'd ..; c'a't secret.txt`
+`c"d ..; c"a"t secret.txt`
+`c"d ..&& c"a"t secret.txt`
+`c"d ..| c"a"t secret.txt`
+ls ..
+`echo 'cd ..'`; `echo 'cat secret.txt'`
+`echo '.. dc' | rev`; `echo 'cat secret.txt'`
+`echo 'ls ..'`
+`echo '.. sl' | rev`

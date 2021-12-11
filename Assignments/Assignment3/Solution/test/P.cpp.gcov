@@ -1,0 +1,101 @@
+        -:    0:Source:P.cpp
+        -:    0:Graph:test/P.gcno
+        -:    0:Data:test/P.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*EOF*/
+        -:    2:/*EOF*/
+        -:    3:/*EOF*/
+        -:    4:/*EOF*/
+function main called 1 returned 100% blocks executed 52%
+        1:    5:/*EOF*/
+        -:    6:/*EOF*/
+        1:    7:/*EOF*/
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:    8:/*EOF*/
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    #####:    9:/*EOF*/
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+    #####:   10:/*EOF*/
+branch  0 never executed
+branch  1 never executed
+    #####:   11:/*EOF*/
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+    #####:   12:/*EOF*/
+branch  0 never executed
+branch  1 never executed
+    #####:   13:/*EOF*/
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:   14:/*EOF*/
+        -:   15:/*EOF*/
+    #####:   16:/*EOF*/
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:   17:/*EOF*/
+        -:   18:/*EOF*/
+        -:   19:/*EOF*/
+        1:   20:/*EOF*/
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        6:   21:/*EOF*/
+branch  0 taken 5 (fallthrough)
+branch  1 taken 1
+        5:   22:/*EOF*/
+branch  0 taken 5 (fallthrough)
+branch  1 taken 0
+        5:   23:/*EOF*/
+call    0 returned 5
+branch  1 taken 5 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 5
+branch  4 taken 5 (fallthrough)
+branch  5 taken 0 (throw)
+        -:   24:/*EOF*/
+    #####:   25:/*EOF*/
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:   26:/*EOF*/
+        -:   27:/*EOF*/
+        -:   28:/*EOF*/
+        1:   29:/*EOF*/
+function _GLOBAL__sub_I_main called 1 returned 100% blocks executed 100%
+function _Z41__static_initialization_and_destruction_0ii called 1 returned 100% blocks executed 100%
+        3:   30:/*EOF*/
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0

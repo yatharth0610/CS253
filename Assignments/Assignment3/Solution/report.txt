@@ -1,0 +1,32 @@
+This file contains the explanation of how did I perform the required task. I will provide the details in a step wise manner below.
+
+1. The first process was to produce a `generate` script that will generate two random 32-bit signed integers. The bash's inbuilt command allows us to generate random 15-bit non-negative integers using the environment variable `$RANDOM`. So, to produce a 32-bit random integer, I adopted the following strategy.
+    a) Produce a 15-bit random integer. 
+    b) Right shift it by 15-bits.
+    c) Generate another 15-bit integer. 
+    d) Take bitwise OR of these two numbers. Now, you have a 30-bit integer.
+    e) Right shift this integer by 2-bits.
+    e) Generate another random number and take it module 4 so, that it has atmost two non-zero bits and takewise bitwise OR of the above formed number with this to produce a 32-bit integer.
+
+2. Running this script with a test program and number of test cases, for eg. `./generate test/P.cpp 500` would produce a file `T` containing the required number of test cases which are separated by a new line and each line contains two space separated integers.
+
+3. The next step was to reduce the number of test cases for obtaining nearly same branch coverage as that of the whole test suite. For this, I implemented a script called `reduce` in bash, which does this task using by greedily choosing the right test cases. I will describe the process and algorithm below.
+
+ALGORITHM: 
+
+Since, we need to maximise the branch coverage of the reduced test suite, we will break down the proccess into looking for the test case that covers maximum number of uncovered branches at any time and putting it into the reduced test-suite. In case of an equality in terms of number of branches, we will select the first one among the given options. Though, this algorithm is not fully correct and one can come up with cases to beat the algorithm, but the algorithm works well enough in the general case and will provide nearly maximal possible branch coverage for most of the cases. 
+
+[References used: https://en.wikipedia.org/wiki/Maximum_coverage_problem]
+
+PROCESS:
+
+    a) Create a program that you would like to test on. Let's call it as P.
+    b) Then, first I compiled the program with g++ compiler and using the flags `-fprofile-arcs` and `-ftest-coverage` to enable gcov to provide coverage for the program.
+    c) After this, I wanted to get the specification of each of the test cases as to which branches are they covering and which are left out. My idea was to store this specification of each test case in the form of an array which is One-Hot-Encoded in the sense that an element in this vector will correspond to each branch in the program and it will be 1 or 0, depending on whether the test case covers that branch or not.
+    d) For extracting the above vector, I ran the compiled binary on each of the test case and parsed the `.gcov` file, produced subsequently by extracting the lines with `branch n taken 0` and the lines `branch n never executed` and setting the values for these branches in the vector as 0 and other values as 1.
+    e) After extracting the vectors for all the test cases, I ran the greedy algorithm descibed above and chose the test case with the largest number of 1s in it's vector, with tie breaking done in favour of smaller number and zeroing out the columns of the branches covered by this test case.
+    f) I kept choosing the test cases in this way until `k` of them have been chosen and then outputted all these test cases in a file named `S`.
+
+4. Finally, S contains the reduced test suite for the program `P` and original test suite `T`.
+
+5. I ran the sample program provided with n = 500 and k = 20, using the command `./reduce test/P.cpp T 20`. And finally obtained the branch coverage of 60.86% with reduced test suite which is pretty close to the complete test suite. The program also outputs two integers in the end besides producing S, that essentially tells the number of branches covered by reduced test suite and total branches present in the program.

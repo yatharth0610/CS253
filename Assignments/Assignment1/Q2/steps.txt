@@ -1,0 +1,35 @@
+This file contains the explanation of how did I perform the required task. I will provide the details in a step wise manner below. 
+
+Important Note : The steps provided below and also the bash files assume the fact that you are running the steps while being in the current directory. 
+
+1. Untar the contents of q2-cs253.tar, using the command `tar xf q2-cs253.tar`.
+
+2. This gave rise to 3 bash files containing the scripts to be run and a Q2.pdf which contains the problem statement.
+
+3. Next step involves giving the read, write and execute permissions the the user and hence, I ran `chmod 777` with parameters as the 4 original files that were obtained in the previous step. 
+
+4. Then, I created three text files, by the name of test1, test2 and test3, which will be input to the three programs respectively.
+
+5. After that, I created the two main scripts (run.sh and kill.sh). The run.sh script is for running three background processes each running an instance of one of the original script with input as one of test1, test2 or test3. 
+
+6. The `run.sh` script uses the fact that while listing the files while being inside the directory, the three original files were the ones that came in the top 3 positions alphabetically and it should not change, unless the contents of this folder are renamed or tempered with. The other option was to list the names of the files directly instead of obtaining them through `ls` command which would have also worked just as fine. I tried the other one as I wanted to combine `ls` with arrays in bash.
+
+7. The rest of the file after obtaining the files is just to run them in background with different files as input. This can be done through the knowledge of changing the stdin from keyboard to a particular file with the help of redirection. The command `bash /path/to/program < /path/to/file &` was used to redirect the input and a program in background. This is exactly what is done in this script.
+
+8. The `kill.sh` script uses the knowledge of `ps` command and a very important command called grep, the other option was to use `psgrep` but since using `ps` with `grep` is more basic, I used that. 
+
+9. I ran the script `run.sh` and then used `ps -f` command to see the running processes at that point. I came to know that there were:
+    a. Three bash named processes each running one instance of the original script.
+    b. Three processes each running the code inside the three original scripts and these were child processes of the three  processes above in 'a' and,
+    c. Three processes that ran the sleep command with different time intervals as used in the original scripts and these were found to be child processes of processes described in 'b'.
+
+10. I used `ps -f` to see the name of the three processes as described in '9(a)' and used the idea to start with these and move down two levels in the process tree rooted at these processes to get the processes '9(b)' and '9(c)'. 
+
+11. In the script, I used the command `ps -f | grep "str"` which will give the process that contains the string "str" in it. This is what I have used to obtain the processes in '9(a)'. It was easy to obtain the pid of the processes which is just the second entry in the array returned in the previous command. 
+
+12. Next, to move down the process tree, I used the command `ps -f --ppid <parent_id>` which I got from manpage of ps and used that to list all the child processes of the process with a given pid. Since, while running the `ps -f` during step 9, I noticed that there was only one children to each of the process of the type '9(a)' and hence I knew that running `ps -f --ppid` will only return one process. Now, running this I saw that it also returns the column names as a result and hence I would have to neglect the few initial elements which were names of columns and not relevant to the process. The pid of the process was the 10th element of this array and that's what I have used in the script. 
+
+13. Similar procedure were obtained to get the processes of the type '9(c)'. After obtaining the PIDs of all the required processes it is just using signals to send the signal to kill the processes using the command `kill -9 <pid_of_process_to_kill>`. 
+
+14. To simulate the running of scripts, first run the script `run.sh` using `bash run.sh` to run three background processes and then run `bash kill.sh` to kill the these three programs.
+

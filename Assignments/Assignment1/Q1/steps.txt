@@ -1,0 +1,37 @@
+This file contains the explanation of how did I perform the required task. I will provide the details in a step wise manner below. 
+
+Important Note : The steps provided below and also the bash files assume the fact that you are running the steps while being in the current directory.
+
+MANUAL METHOD:
+
+1. Firstly, we need to provide the required permission to the zipped file `q1-cs253.tar.gz`, so that we can unzip it. I used `chmod 777` command to do that. 
+
+2. Now, we need to untar the contents of `q1-cs253.tar.gz` using the command `tar xvfz q1-c253.tar.gz` which gives out two folder `q1-cs253.zip` and a pdf file containing the instruction. I gave required permissions to both of these files using command `chmod 777`.
+
+3. Next, I unzipped the file `q1-cs253.zip` and stored the extracted files in the folder by the name of `package_files` using the command `unzip q1-cs253.zip -d package_files`. This led to two bash scripts one by the name, deploy.gz and other one with some random name and .gz extension.
+
+4. I set the required permissions to the gzip files using `chmod 777` and then unzipped the scripts using `gzip -d <file_name>`. 
+
+5. Then, I ran the scripts first the `deploy` with `bash deploy` and it gave an error saying that the script required 4 input parametes. On running the other script, I got the package name and along with that it generated two new directories as well. I gave the required permissions to the new directories and saw their content.  
+
+6. One of them contained a file with the timestamp of when I ran the second bash script and the other directory contained two files with random one line messages inside them which seemed like package-id and server-id.
+
+7. Now, I needed to know what were the 4 parameters required to be given to deploy script to run it successfully. For that, I used `cat deploy` to see the contents of the scipt but it was in some format that was not readable. However, I saw a part containing `eval <something>` line. 
+
+8. I figured out from internet that eval had something to do with running a particular command/process. So, I tried to change the eval to echo so that I can see what commands/processes it was trying to run in a hope that I can see the contents of the script. 
+
+9. And yes! it actually displayed the original bash script from which I got to know which parameter needs to be what. So, I gave the parameters in that order with EMP_ID as my roll number and then I received the success message. 
+
+10. I suppose the fitting of parameters can be done using some trial and error as well by trying some combinations of the files obtained and then by looking at the error message on the console.
+
+AUTOMATING THE PROCESS:
+
+1. I tried to create a bash script to automate the complete process I did above. The script is stored with the name `automate.sh`.
+
+2. The first few lines are only utarring and giving permissions to the files. After extracting all the files, I figured out the two bash scripts which were the 1st and the 2nd ones on using `ls` inside the directory and hence used array elements to get these files.
+
+3. I ran the other script and then to get the package name, I obtained the first line of the output using `head -n 1` and then piped it to the command `cut -d " " -f 3` which cuts the string obtained at spaces and I selected the third element of that array which provided the name of the package. 
+
+4. On running the previous script it produces two directories which I extracted using `-d` flag in `ls` command which I got from the manpage of `ls` and used the `*/` pattern to extract the names of subdirectories without their contents. I gave permissions to those and then figured out which one contains one file and which one contains two files using simple if-else statements. 
+
+5. The next step is just to run the `deploy` script with the required parameters and redirect the output to "submission-q1.txt".

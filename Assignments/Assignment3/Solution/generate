@@ -1,0 +1,15 @@
+#!/bin/bash
+
+program=$1;
+size=$2;
+
+for (( i=0; i<$size; i++ )) do
+    a=$((((RANDOM<<15|RANDOM)<<2|RANDOM%4) - 2147483648));
+    b=$((((RANDOM<<15|RANDOM)<<2|RANDOM%4) - 2147483648));
+    filename="test/T";
+    echo "$a $b" >> $filename;
+done 
+
+
+
+

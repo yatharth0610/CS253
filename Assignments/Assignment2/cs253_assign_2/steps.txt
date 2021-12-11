@@ -1,0 +1,17 @@
+This file contains the explanation of how did I perform the required task. I will provide the details in a step wise manner below.
+
+1. Unzip the contents of the original file `1611933476_cs253_assign_2.zip` using the command `unzip <file_name>`.
+
+2. Enter into the `cs253_assign_2` and download the data using `wget -O <file_to_save_in> <link>` in the file `covid_Data.json`.
+
+3. Then I started to write the bash script for the task in hand. I will provide here a brief overview of the process I employed for this. 
+    (a) First I extracted the names of all the states using the command `jq 'keys' <data_file>`. This gave me the list as an array from which I first removed the first and last character which were opening and closing square braces. 
+    (b) After that, I removed the ',' character which was also present in the array using sed to subsitute ',' with none char.
+    (c) Then I iterated over all the elements in the `states` array and for each state, I iterated over all the districts and checked the condition for the validity of the district according to certain conditions.
+    (d) I used `for` loops in bash to iterate over the states and changed the default delimiter/seperator in bash from space char to ","(comma) by changing the value of IFS variable to ",". By doing this, all the districts came with a new line character alongside them which had to be removed.
+    (e) I used the `grep -o` command (which I got from manpage of `grep`) with pattern `".*"` to select only the part with quotes in it, or in other words the part which contained district's name.
+    (f) For maintaining the precision of float operations, I used the "bc" math library for bash and rounded off the answer to 2 places after decimal.
+    (g) I logged the stderr to the file `error.txt` by wrapping the complete script inside parenthesis (to make it run inside another subshell) and then setting the stderr to `error.txt` by using it's file descriptor `2`.
+    (h) Then, I stored the result in a csv file by appending the comma separated values in the `processed_Covid_Data_191178.csv` file.
+
+4. After writing the script, I ran it and got the output in `processed_Covid_Data_191178` and errors in `error.txt` file. I got results for 27 states in the end which can be seen in the csv file provided alongside.
