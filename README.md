@@ -1,2 +1,2 @@
 # CS253
-Resources related to the course CS253 (Software Development and Operations) at IITK. 
+This repository houses my attempt for the assignments and midsem exam for the course CS253. All the solutions to assignments and exams are well documented and should be easy to follow. 
